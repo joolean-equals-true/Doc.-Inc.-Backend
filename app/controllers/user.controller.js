@@ -7,19 +7,27 @@ const exports = {};
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
-  
+  if (!req.body.fName) {
+    logger.warn('User creation attempt with empty fName');
+    res.status(400).send({
+      message: "Content can not be empty!",
+    });
+    return;
+  }
 
   // Create a User
   const user = {
-    id: req.body.id,
-    fName: req.body.fName,
-    lName: req.body.lName,
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
     email: req.body.email,
-    // refresh_token: req.body.refresh_token,
-    // expiration_date: req.body.expiration_date
+    SSN: req.body.SSN,
+    is_active: req.body.is_active,
+    username: req.body.username,
+    password: req.body.password,
+    account_number: req.body.account_number
   };
 
-  logger.debug(`Creating user: ${user.email}`);
+  logger.debug(`Creating user...`);
 
   // Save User in the database
   User.create(user)
