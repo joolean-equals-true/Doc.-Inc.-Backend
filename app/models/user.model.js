@@ -1,33 +1,58 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-const User = SequelizeInstance.define("user", {
+const User = SequelizeInstance.define("users", {
   
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
-  fName: {
+  first_name: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: "",
   },
-  lName: {
+   last_name: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: "",
   },
   email: {
     type: Sequelize.STRING,
     allowNull: false,
+    defaultValue: "",
   },
-  // refresh_token: {
-  //   type: Sequelize.STRING(512),
-  //   allowNull: true
-  // },
-  // expiration_date: {
-  //   type: Sequelize.DATE,
-  //   allowNull: true
-  // },
+  phone_number: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+  ssn: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+  is_active:{
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  username: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+  account_number:{
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: "",
+  }
 });
 
 export default User;
