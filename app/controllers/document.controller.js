@@ -15,7 +15,6 @@ exports.create = (req, res) => {
     SSN: req.body.SSN,
     document_content: req.body.document_content,
     receiver_id: req.body.receiver_id,
-    sender_id: req.body.sender_id
   };
 
   logger.debug(`Creating Document...`);
