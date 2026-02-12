@@ -1,6 +1,5 @@
 import db  from "../models/index.js";
 import logger from "../config/logger.js";
-import { or } from "sequelize/types/sequelize.js";
 
 const Account_Link = db.account_link;
 const Op = db.Sequelize.Op;

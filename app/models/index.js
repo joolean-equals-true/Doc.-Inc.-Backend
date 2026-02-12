@@ -57,16 +57,15 @@ db.client_membership.belongsTo(db.user, { foreignKey: "client_id" });
 db.user.hasMany(db.document, { foreignKey: "receiver_id" });
 db.document.belongsTo(db.user, { foreignKey: "receiver_id" });
 
-db.email.hasOne(db.document, { foreignKey: "document_id" });
+db.document.hasOne(db.email, { foreignKey: "document_id" });
 db.email.belongsTo(db.business, { foreignKey: "business_id" });
 db.business.hasMany(db.email, { foreignKey: "business_id" });
 
 db.recipient.belongsTo(db.user, { foreignKey: "receiver_id" });
-db.email.hasMany(db.recipient, { foreignKey: "email_id" });
+db.recipient.hasMany(db.recipient, { foreignKey: "email_id" });
 
 db.logging.hasOne(db.recipient, { foreignKey: "recipient_id" });
-db.logging.hasOne(db.email, { foreignKey: "email_id" });
-email.hasMany(db.logging, { foreignKey: "email_id" });
+db.email.hasOne(db.logging, { foreignKey: "email_id" });
 
 
 

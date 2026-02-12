@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
   
 // Load the routes from the routes folder
-app.use("/workerscheduling-t4", routes); 
+app.use("/doc.inc", routes); 
 
 
 // set port, listen for requests

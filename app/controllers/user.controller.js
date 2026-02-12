@@ -6,14 +6,6 @@ const Op = db.Sequelize.Op;
 const exports = {};
 // Create and Save a new User
 exports.create = (req, res) => {
-  // Validate request
-  if (!req.body.fName) {
-    logger.warn('User creation attempt with empty fName');
-    res.status(400).send({
-      message: "Content can not be empty!",
-    });
-    return;
-  }
 
   // Create a User
   const user = {

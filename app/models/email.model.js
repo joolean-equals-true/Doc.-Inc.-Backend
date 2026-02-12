@@ -10,7 +10,7 @@ const Email = SequelizeInstance.define("emails", {
   },
   name:{
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
     defaultValue: "",
   },
   expiration_date:{
@@ -20,7 +20,7 @@ const Email = SequelizeInstance.define("emails", {
   },
   is_visible:{
     type: Sequelize.BOOLEAN,
-    allowNull: false,
+    allowNull: true,
     defaultValue: true,
   },
   document_id:{

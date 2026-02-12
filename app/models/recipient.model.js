@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import SequelizeInstance from "../config/sequelizeInstance.js";
 
-const Email = SequelizeInstance.define("emails", {
+const Recipient = SequelizeInstance.define("recipients", {
   
   id: {
     type: Sequelize.INTEGER,
@@ -28,5 +28,5 @@ const Email = SequelizeInstance.define("emails", {
   }
 });
 
-export default Email;
+export default Recipient;
 
