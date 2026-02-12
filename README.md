@@ -1,11 +1,9 @@
 # Doc. Inc. Backend
 This is the backend for Doc. Inc, which features tables for businesses, documents, users, emails, logging, and accounts (as well as a few other specific tables) using Sequelize as the ORM.
-To run this backend, simply clone the repository with git clone.
 
 ## Installation
-From this repostiory, copy the github link and run
+From this repostiory, copy the github link and run git clone with the http link as the parameter.
 
-git clone (http repository link)
 
 You should clone all the files, without any node modules. Next, run npm install to retreive all the necessary node modules. lastly, create an .env file outside all other folders (same level as this README.md file). This file will hold the database host, password of the database, the user for that password, and the name of the database you will be performing operations on in this format:
 
