@@ -114,34 +114,47 @@ exports.findByEmail = (req, res) => {
 };
 
 // Update a User by the id in the request
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id;
 
-  logger.debug(`Updating user ${id} with data: ${JSON.stringify(req.body)}`);
-  User.update(req.body, {
-    where: { id: id },
-  })
-    .then((num) => {
-      if (num == 1) {
-        logger.info(`User ${id} updated successfully`);
-        res.send({
-          message: "User was updated successfully.",
-        });
-      } else {
-        logger.warn(`Failed to update user ${id} - not found or empty body`);
-        res.send({
-          message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`,
-        });
-      }
-    })
-    .catch((err) => {
-      logger.error(`Error updating user ${id}: ${err.message}`);
-      res.status(500).send({
-        message: "Error updating User with id=" + id,
-      });
-    });
-};
+  try {
+    logger.debug(`Updating user ${id} with data: ${JSON.stringify(req.body)}`);
 
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      logger.warn(`User not found with id: ${id}`);
+      return res.status(404).send({
+        message: `Cannot find User with id=${id}.`,
+      });
+    }
+
+    // Check if opt_out is being changed to true
+    if (
+
+      req.body.opt_out === true &&
+      user.opt_out === false
+    ) {
+      user.balance+=2;
+      req.body.balance = user.balance; // Ensure balance is included in the update
+      logger.info(`User ${id} opted out — balance increased by 2`);
+    }
+
+    // Update other fields
+    await user.update(req.body);
+
+    logger.info(`User ${id} updated successfully`);
+    res.send({
+      message: "User was updated successfully.",
+    });
+
+  } catch (err) {
+    logger.error(`Error updating user ${id}: ${err.message}`);
+    res.status(500).send({
+      message: "Error updating User with id=" + id,
+    });
+  }
+};
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
