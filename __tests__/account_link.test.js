@@ -2,17 +2,18 @@ import request from "supertest";
 //adding a comment.
 const BASE_URL = "http://localhost:3000";
 
-describe("User opt_out balance reward", () => {
+describe("account_linking.", () => {
 
   let createdUserId;
+  let createdUserId2;
 
-  it("should create a user with default balance 0 and opt_out false", async () => {
+  it("should create a user with regular values.", async () => {
     const res = await request(BASE_URL)
       .post("/doc.inc/users")
       .send({
-        first_name: "Reward",
-        last_name: "Tester",
-        email: "reward@test.com",
+        first_name: "Julian",
+        last_name: "Moore",
+        email: "julian.moore@test.com",
         phone_number: "1234567890",
         ssn: "999-99-9999",
         username: "rewarduser",
@@ -24,27 +25,36 @@ describe("User opt_out balance reward", () => {
 
     createdUserId = res.body.id;
 
-    expect(res.body.balance).toBe(0);
-    expect(res.body.opt_out).toBe(false);
   });
 
-  it("should increase balance by 2 when opt_out becomes true", async () => {
-    const updateRes = await request(BASE_URL)
-      .put(`/doc.inc/users/${createdUserId}`)
+
+    it("should create a second user with normal values", async () => {
+    const res = await request(BASE_URL)
+      .post("/doc.inc/users")
       .send({
-        opt_out: true
+        first_name: "Jacob",
+        last_name: "Stevens",
+        email: "stevens@test.com",
+        phone_number: "1234567890",
+        ssn: "999-99-9999",
+        username: "rewarduser",
+        password: "password",
+        account_number: "ABC123"
+      });
+
+    expect(res.statusCode).toBe(200);
+
+    createdUserId2 = res.body.id;
+  });
+  it("should create a valid link between both accounts.", async () => {
+    const res = await request(BASE_URL)
+      .post("/doc.inc/account_links")
+      .send({
+        original_account_id: createdUserId,
+        linked_account_id: createdUserId2
       });
 
     expect(updateRes.statusCode).toBe(200);
-
-    // Fetch updated user
-    const getRes = await request(BASE_URL)
-      .get(`/doc.inc/users/${createdUserId}`);
-
-    expect(getRes.statusCode).toBe(200);
-
-    expect(getRes.body.opt_out).toBe(true);
-    expect(getRes.body.balance).toBe(2);
   });
 
 
