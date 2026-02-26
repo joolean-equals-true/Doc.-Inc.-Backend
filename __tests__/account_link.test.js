@@ -8,7 +8,7 @@ describe("User opt_out balance reward", () => {
 
   it("should create a user with default balance 0 and opt_out false", async () => {
     const res = await request(BASE_URL)
-      .post("/api/users")
+      .post("/doc.inc/users")
       .send({
         first_name: "Reward",
         last_name: "Tester",
@@ -30,7 +30,7 @@ describe("User opt_out balance reward", () => {
 
   it("should increase balance by 2 when opt_out becomes true", async () => {
     const updateRes = await request(BASE_URL)
-      .put(`/api/users/${createdUserId}`)
+      .put(`/doc.inc/users/${createdUserId}`)
       .send({
         opt_out: true
       });
@@ -49,7 +49,7 @@ describe("User opt_out balance reward", () => {
 
   it("should NOT increase balance again if opt_out is already true", async () => {
     await request(BASE_URL)
-      .put(`/api/users/${createdUserId}`)
+      .put(`/doc.inc/users/${createdUserId}`)
       .send({
         opt_out: true
       });
