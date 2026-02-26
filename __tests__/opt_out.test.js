@@ -1,5 +1,6 @@
 import request from "supertest";
-//adding a comment.
+//Mock test. each call made by api is tested with an expected result, 
+//ontop of the balance being checked at the end. 
 const BASE_URL = "http://localhost:3000";
 
 describe("User opt_out balance reward", () => {
