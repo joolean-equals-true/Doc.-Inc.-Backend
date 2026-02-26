@@ -54,7 +54,7 @@ describe("account_linking.", () => {
         linked_account_id: createdUserId2
       });
 
-    expect(updateRes.statusCode).toBe(200);
+    expect(res.statusCode).toBe(200);
   });
 
 
