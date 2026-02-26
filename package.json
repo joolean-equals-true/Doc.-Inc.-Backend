@@ -1,0 +1,37 @@
+{
+  "type": "module",
+  "name": "workerscheduling-t4-backend",
+  "version": "1.0.0",
+  "description": "Schedule Node.js with Rest API",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest --",
+    "start": "node server.js",
+    "bundle": "mkdir deploy && cp -r app server.js package.json package-lock.json workerscheduling-t4-backend.service .env deploy"
+  },
+  "keywords": [
+    "node.js",
+    "express",
+    "sequelize"
+  ],
+  "author": "cs",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-winston": "^4.2.0",
+    "googleapis": "^100.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.16.2",
+    "parser": "^0.1.4",
+    "sequelize": "^6.19.0",
+    "supertest": "^6.3.3",
+    "winston": "^3.11.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "jest": "^30.2.0"
+  }
+}
