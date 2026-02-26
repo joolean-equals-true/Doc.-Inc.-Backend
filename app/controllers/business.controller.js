@@ -108,33 +108,44 @@ exports.findByEmail = (req, res) => {
 };
 
 // Update a Business by the id in the request
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id;
 
-  logger.debug(`Updating Business ${id} with data: ${JSON.stringify(req.body)}`);
+  try {
+    logger.debug(`Updating user ${id} with data: ${JSON.stringify(req.body)}`);
 
-  Business.update(req.body, {
-    where: { id: id },
-  })
-    .then((num) => {
-      if (num == 1) {
-        logger.info(`Business ${id} updated successfully`);
-        res.send({
-          message: "Business was updated successfully.",
-        });
-      } else {
-        logger.warn(`Failed to update Business ${id} - not found or empty body`);
-        res.send({
-          message: `Cannot update Business with id=${id}. Maybe Business was not found or req.body is empty!`,
-        });
-      }
-    })
-    .catch((err) => {
-      logger.error(`Error updating Business ${id}: ${err.message}`);
-      res.status(500).send({
-        message: "Error updating Business with id=" + id,
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      logger.warn(`User not found with id: ${id}`);
+      return res.status(404).send({
+        message: `Cannot find User with id=${id}.`,
       });
+    }
+
+    // Check if opt_out is being changed to true
+    if (
+      req.body.opt_out === true &&
+      user.opt_out === false
+    ) {
+      user.balance += 2;
+      logger.info(`User ${id} opted out — balance increased by 2`);
+    }
+
+    // Update other fields
+    await user.update(req.body);
+
+    logger.info(`User ${id} updated successfully`);
+    res.send({
+      message: "User was updated successfully.",
     });
+
+  } catch (err) {
+    logger.error(`Error updating user ${id}: ${err.message}`);
+    res.status(500).send({
+      message: "Error updating User with id=" + id,
+    });
+  }
 };
 
 // Delete a Business with the specified id in the request

@@ -16,7 +16,8 @@ exports.create = (req, res) => {
     is_active: req.body.is_active,
     username: req.body.username,
     password: req.body.password,
-    account_number: req.body.account_number
+    account_number: req.body.account_number,
+    opt_out: req.body.opt_out
   };
 
   logger.debug(`Creating user...`);
@@ -117,7 +118,6 @@ exports.update = (req, res) => {
   const id = req.params.id;
 
   logger.debug(`Updating user ${id} with data: ${JSON.stringify(req.body)}`);
-
   User.update(req.body, {
     where: { id: id },
   })

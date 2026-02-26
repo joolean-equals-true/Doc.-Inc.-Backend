@@ -1,9 +1,9 @@
 import 'dotenv/config';
 
-const db_host = process.env.DB_HOST;
-const db_pw = process.env.DB_PW;
-const db_user = process.env.DB_USER;
-const db_name = process.env.DB_NAME;
+const db_host = process.env.DB_HOST || 'localhost';
+const db_pw = process.env.DB_PW || "root";
+const db_user = process.env.DB_USER ||"root";
+const db_name = process.env.DB_NAME || "testdb";
 
 const dbConfig = {
   HOST: db_host,

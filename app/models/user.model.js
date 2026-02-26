@@ -52,6 +52,16 @@ const User = SequelizeInstance.define("users", {
     type: Sequelize.STRING,
     allowNull: false,
     defaultValue: "",
+  },
+  balance:{
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
+  opt_out:{
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
   }
 });
 
