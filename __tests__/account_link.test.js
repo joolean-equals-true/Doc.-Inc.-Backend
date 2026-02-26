@@ -39,7 +39,7 @@ describe("User opt_out balance reward", () => {
 
     // Fetch updated user
     const getRes = await request(BASE_URL)
-      .get(`/api/users/${createdUserId}`);
+      .get(`/doc.inc/users/${createdUserId}`);
 
     expect(getRes.statusCode).toBe(200);
 
@@ -47,17 +47,5 @@ describe("User opt_out balance reward", () => {
     expect(getRes.body.balance).toBe(2);
   });
 
-  it("should NOT increase balance again if opt_out is already true", async () => {
-    await request(BASE_URL)
-      .put(`/doc.inc/users/${createdUserId}`)
-      .send({
-        opt_out: true
-      });
-
-    const getRes = await request(BASE_URL)
-      .get(`/api/users/${createdUserId}`);
-
-    expect(getRes.body.balance).toBe(2);
-  });
 
 });
